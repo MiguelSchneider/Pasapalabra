@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasapalabra - El Rosco</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <h1>Pasapalabra</h1>
+  <div class="subtitle">EL ROSCO</div>
+
+  <!-- ======= START SCREEN ======= -->
+  <div id="screen-start" class="screen visible">
+    <!-- Decorative rosco background -->
+    <div class="start-rosco-bg" id="start-rosco-bg"></div>
+
+    <div class="start-box">
+      <div class="start-hero">
+        <div class="start-tagline">¿Podrás completar el rosco?</div>
+      </div>
+
+      <div class="start-rules">
+        <div class="rule-item">
+          <div class="rule-icon">&#9898;</div>
+          <div class="rule-text"><b>27 letras</b> — Responde a la definición de cada letra, de la A a la Z</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">&#10148;</div>
+          <div class="rule-text"><b>Pasapalabra</b> — Si no sabes la respuesta, di "pasapalabra" y vuelve a ella más
+            tarde</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">&#128266;</div>
+          <div class="rule-text"><b>Voz interactiva</b> — Escucha las preguntas y responde hablando al micrófono</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon btn-mic listening">&#127908;</div>
+          <div class="rule-text"> <b>Micrófono</b> — Espera a que se active el microfono para decir "pasapalabra" o tu respuesta, o haz
+            click en el botón de paso para saltar y volver a esa letra más
+            tarde</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">&#9201;</div>
+          <div class="rule-text"><b>220 segundos</b> — Responde todas las letras antes de que se acabe el tiempo</div>
+        </div>
+
+      </div>
+
+      <div class="start-options" style="display: none;">
+        <label class="tts-toggle">
+          <input type="checkbox" id="tts-enabled" checked />
+          Leer preguntas en voz alta
+        </label>
+        <label class="tts-toggle">
+          <input type="checkbox" id="mic-enabled" checked />
+          Responder con voz (micrófono)
+        </label>
+      </div>
+
+      <button class="btn-start" id="btn-start">COMENZAR</button>
+
+      <div class="start-footer">
+        <p class="start-note">&#128276; La primera vez se te pedirá permiso para usar el micrófono — acéptalo para jugar
+          con voz.</p>
+        <p class="start-compat">Optimizado para <b>Chrome</b> y <b>Safari</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= GAME SCREEN ======= -->
+  <div id="screen-game" class="screen">
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="dot dot-correct"></div><span id="s-correct">0</span>
+      </div>
+      <div class="stat">
+        <div class="dot dot-wrong"></div><span id="s-wrong">0</span>
+      </div>
+      <div class="stat">
+        <div class="dot dot-pending"></div><span id="s-pending">27</span>
+      </div>
+    </div>
+    <div class="timer-display" id="timer">3:00</div>
+    <div class="game-area" id="rosco"></div>
+    <div class="game-controls" id="game-controls">
+      <div class="input-area">
+        <input type="text" id="answer-input" placeholder="Tu respuesta..." autocomplete="off" autocapitalize="none" />
+        <button class="btn btn-submit" id="btn-ok">OK</button>
+        <button class="btn btn-pass" id="btn-pass">Paso</button>
+        <button class="btn-mic" id="btn-mic" title="Responder con voz">&#127908;</button>
+      </div>
+      <div class="voice-status" id="voice-status"></div>
+    </div>
+  </div>
+
+  <!-- ======= END SCREEN ======= -->
+  <div id="screen-end" class="screen">
+    <div class="end-box">
+      <div class="end-title" id="end-title"></div>
+      <div class="end-stats" id="end-stats"></div>
+      <div class="end-words" id="end-words"></div>
+      <button class="btn-start" id="btn-replay">JUGAR DE NUEVO</button>
+    </div>
+  </div>
+
+  <!-- Wrong answer modal -->
+  <div class="modal-overlay" id="wrong-modal">
+    <div class="modal-box">
+      <div class="modal-icon">&#10060;</div>
+      <div class="modal-title">Incorrecto</div>
+      <div class="modal-answer-label">La respuesta correcta era:</div>
+      <div class="modal-answer" id="modal-correct-word"></div>
+      <button class="btn-continue" id="btn-continue">CONTINUAR</button>
+    </div>
+  </div>
+
+  <div class="feedback" id="feedback"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
