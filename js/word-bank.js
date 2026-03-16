@@ -1377,7 +1377,7 @@ const WORD_BANK = {
     { word: "zeca", def: "Ceca o casa de moneda, grafía antigua", contains: false },
     { word: "zelote", def: "Miembro de un grupo judío antiguo", contains: false },
     { word: "zen", def: "Escuela budista de meditación" },
-    { word: "zepelín", def: "Globo dirigible", contains: false },
+    { word: "zeppelín", def: "Globo dirigible", contains: false },
     { word: "zigzag", def: "Línea con ángulos alternos" },
     { word: "zinc", def: "Metal blanco azulado" },
     { word: "zíngaro", def: "Gitano, uso literario" },
