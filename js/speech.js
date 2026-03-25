@@ -125,6 +125,20 @@ function pickBestVoice() {
   state.bestVoice = good || voices.find(v => v.lang.startsWith('es')) || null;
 }
 
+/** Promise that resolves once the browser's voice list is populated. */
+export const voicesReady = new Promise((resolve) => {
+  const voices = window.speechSynthesis.getVoices();
+  if (voices.length > 0) { pickBestVoice(); resolve(); return; }
+  const prev = window.speechSynthesis.onvoiceschanged;
+  window.speechSynthesis.onvoiceschanged = () => {
+    pickBestVoice();
+    if (prev) prev();
+    resolve();
+  };
+  // Safety timeout — resolve anyway after 2s so the game isn't blocked forever
+  setTimeout(resolve, 2000);
+});
+
 export function speak(text) {
   const gen = ++state.speakGeneration;
   D.tts(`speak() gen=${gen}: "${text.substring(0, 60)}..."`);
@@ -141,6 +155,7 @@ export function speak(text) {
   if (!state.bestVoice) pickBestVoice();
   state.speakTimer = setTimeout(() => {
     if (gen !== state.speakGeneration) { D.warn(`speak() gen=${gen} stale (current=${state.speakGeneration}), aborting`); return; }
+    if (!state.bestVoice) pickBestVoice();
     const utt = new SpeechSynthesisUtterance(text);
     utt.lang = 'es-ES';
     utt.rate = 0.95;
@@ -177,6 +192,5 @@ export function toggleMic() {
   }
 }
 
-// Load voices as soon as available
-window.speechSynthesis.onvoiceschanged = () => pickBestVoice();
+// Initial eager attempt (works if voices are already loaded synchronously)
 pickBestVoice();

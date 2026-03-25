@@ -2,7 +2,7 @@ import { TOTAL, GAME_TIME } from './config.js';
 import { D } from './debug.js';
 import { state } from './state.js';
 import { pickWords } from './word-picker.js';
-import { initSpeechRecognition, stopListening, stopAudio, toggleMic } from './speech.js';
+import { initSpeechRecognition, stopListening, stopAudio, toggleMic, voicesReady } from './speech.js';
 import {
   normalize, buildRosco, showScreen, showQuestion, highlightCurrent,
   updateTimerDisplay, updateStats, showFeedback, showWrongModal, hideWrongModal,
@@ -109,10 +109,13 @@ function handleSpeechResult(transcript) {
 
 // ========== Public game lifecycle ==========
 
-export function startGame() {
+export async function startGame() {
   state.ttsEnabled = document.getElementById('tts-enabled').checked;
   state.micEnabled = document.getElementById('mic-enabled').checked;
   if (state.micEnabled) initSpeechRecognition(handleSpeechResult);
+
+  // Wait for browser voices to load so TTS uses a Spanish voice
+  if (state.ttsEnabled) await voicesReady;
 
   pickWords();
 
